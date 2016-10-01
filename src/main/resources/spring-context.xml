@@ -1,21 +1,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://camel.apache.org/schema/spring
-http://camel.apache.org/schema/spring/camel-spring.xsd">
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <bean id="ftpToJmsRoute" class="cameltest.SpringRouteBuilder"/>
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-            <routeBuilder ref="ftpToJmsRoute"/>
-    </camelContext>
+    <context:component-scan base-package="bean"/>
 
     <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
         <property name="connectionFactory">
             <bean class="org.apache.activemq.ActiveMQConnectionFactory">
-                <property name="brokerURL" value="tcp://192.168.56.4:61616" />
+                <property name="brokerURL" value="tcp://192.168.56.4:61616"/>
             </bean>
         </property>
     </bean>
+
+    <bean id="ftpToJmsRoute" class="routes.SpringRouteBuilder"/>
+    <bean id="helloBeanRoute" class="routes.HelloBeanRoute"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <routeBuilder ref="ftpToJmsRoute"/>
+        <routeBuilder ref="helloBeanRoute"/>
+    </camelContext>
+
+
 </beans>

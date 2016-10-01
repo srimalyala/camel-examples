@@ -1,4 +1,4 @@
-package cameltest;
+package routes;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 /**
  * Created by srikanth on 2016/09/25.
  */
-@Component
 public class SpringRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
